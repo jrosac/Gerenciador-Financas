@@ -24,13 +24,13 @@
             </p>
             <div class="flex gap-4">
 
-                <x-button class="bg-green-600 hover:bg-green-700 cursor-pointer">
+                <x-link-button color="success">
                     Cadastro
-                </x-button>
+                </x-link-button>
 
-                <x-button class="bg-gray-600 hover:bg-gray-700 cursor-pointer">
+                <x-link-button >
                     Login
-                </x-button>
+                </x-link-button>
             </div>
         </div>
     </section>
