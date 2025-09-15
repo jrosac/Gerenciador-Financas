@@ -8,7 +8,7 @@
     <title>Gerenciador de Finanças</title>
 </head>
 <body>
-    <div class="h-full bg-gradient-to-b from-green-900 to-green-700">
+    <div class="min-h-screen h-full bg-gradient-to-b from-green-900 to-green-700">
 
         <header class="bg-black/70 backdrop-blur-md text-white p-4 flex justify-between sticky top-0">
             <span class="font-bold">LOGO</span>
