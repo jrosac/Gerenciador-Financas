@@ -13,9 +13,9 @@
         <header class="bg-black/70 backdrop-blur-md text-white p-4 flex justify-between sticky top-0">
             <span class="font-bold">LOGO</span>
         <ul class="flex gap-6">
-          <li><a href="#" class="hover:text-purple-300">Home</a></li>
-          <li><a href="#" class="hover:text-purple-300">Sobre</a></li>
-          <li><a href="#" class="hover:text-purple-300">Contato</a></li>
+          <li><a href="#" class="hover:text-green-300">Home</a></li>
+          <li><a href="#" class="hover:text-green-300">Sobre</a></li>
+          <li><a href="#" class="hover:text-green-300">Contato</a></li>
         </ul>
         </header>
 
