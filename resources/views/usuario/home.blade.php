@@ -32,11 +32,11 @@
             Cadastrar Compra
             <p class="text-sm mt-2 text-gray-200">Adicione uma nova compra ao sistema</p>
         </a>
-        <a href="#" class="text-xl p-8 bg-yellow-600 rounded-xl text-center shadow hover:scale-105 transition-transform duration-300">
+        <a href="{{route('dashboards')}}" class="text-xl p-8 bg-yellow-600 rounded-xl text-center shadow hover:scale-105 transition-transform duration-300">
             Dashboards
             <p class="text-sm mt-2 text-gray-200">Visualize gráficos e relatórios</p>
         </a>
-        <a href="#" class="text-xl p-8 bg-purple-600 rounded-xl text-center shadow hover:scale-105 transition-transform duration-300">
+        <a href="{{route('IndexCompra')}}" class="text-xl p-8 bg-purple-600 rounded-xl text-center shadow hover:scale-105 transition-transform duration-300">
             Listar Compras
             <p class="text-sm mt-2 text-gray-200">Veja o histórico completo de compras</p>
         </a>
