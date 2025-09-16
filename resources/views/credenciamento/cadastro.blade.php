@@ -59,7 +59,7 @@
             type="submit"
             class="mt-4 w-full bg-green-600 hover:bg-green-500 transition-colors text-white font-bold py-2 px-4 rounded-lg shadow-md cursor-pointer"
         >
-            Entrar
+            Cadastrar
         </button>
 
     </form>
