@@ -10,12 +10,12 @@
 <body>
     <div class="min-h-screen h-full bg-gradient-to-b from-green-900 to-green-700">
 
-        <header class="bg-black/70 backdrop-blur-md text-white p-4 flex justify-between sticky top-0">
-            <span class="font-bold">LOGO</span>
-        <ul class="flex gap-6">
-          <li><a href="#" class="hover:text-green-300">Home</a></li>
-          <li><a href="#" class="hover:text-green-300">Sobre</a></li>
-          <li><a href="#" class="hover:text-green-300">Contato</a></li>
+        <header class="bg-black/70 backdrop-blur-md text-white flex justify-between sticky top-0 items-center m-0 p-2">
+            <img src="{{Vite::asset('resources/assets/logo4.png')}}" alt="Logo da empresa" class="w-25 h-20 m-0 p-0" >
+        <ul class="flex gap-6 ">
+          <li><a href="#" class="hover:text-green-300 text-lg">Home</a></li>
+          <li><a href="#" class="hover:text-green-300 text-lg">Sobre</a></li>
+          <li><a href="#" class="hover:text-green-300 text-lg">Contato</a></li>
         </ul>
         </header>
 
