@@ -28,7 +28,7 @@
                     Cadastro
                 </x-link-button>
 
-                <x-link-button >
+                <x-link-button  href="{{route('login')}}">
                     Login
                 </x-link-button>
             </div>
