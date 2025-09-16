@@ -24,7 +24,7 @@
             </p>
             <div class="flex gap-4">
 
-                <x-link-button color="success">
+                <x-link-button color="success" href="{{route('cadastro')}}">
                     Cadastro
                 </x-link-button>
 
