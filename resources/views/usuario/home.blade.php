@@ -24,11 +24,11 @@
 
     <!-- Ações rápidas -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl mb-10">
-        <a href="#" class="text-xl p-8 bg-blue-600 rounded-xl text-center shadow hover:scale-105 transition-transform duration-300">
+        <a href="{{route('update')}}" class="text-xl p-8 bg-blue-600 rounded-xl text-center shadow hover:scale-105 transition-transform duration-300">
             Atualizar Perfil
             <p class="text-sm mt-2 text-gray-200">Edite suas informações pessoais</p>
         </a>
-        <a href="#" class="text-xl p-8 bg-green-600 rounded-xl text-center shadow hover:scale-105 transition-transform duration-300">
+        <a href="{{route("createCompra")}}" class="text-xl p-8 bg-green-600 rounded-xl text-center shadow hover:scale-105 transition-transform duration-300">
             Cadastrar Compra
             <p class="text-sm mt-2 text-gray-200">Adicione uma nova compra ao sistema</p>
         </a>
