@@ -2,7 +2,10 @@
 
 @section("content")
 
-<div class="max-w-md mx-auto mt-16 p-8 bg-black/70 backdrop-blur-md rounded-xl shadow-lg">
+<div class="max-w-md mx-auto mt-16 px-8 py-8 bg-black/70 backdrop-blur-md rounded-xl shadow-lg">
+    <div class="flex justify-center">
+        <img src="{{Vite::asset('resources/assets/logo4.png')}}" alt="Logo da empresa" class="h-20 mb-3">
+    </div>
     <h1 class="text-3xl font-bold text-white text-center mb-6">Login</h1>
     <form action="" class="flex flex-col gap-4">
 
@@ -36,6 +39,9 @@
         </button>
 
     </form>
+    <div class="mt-2">
+        <a href="#" class="text-white mb-1 font-medium hover:text-gray-400 transition">Esqueceu sua senha?</a>
+    </div>
 </div>
 
 @endsection
