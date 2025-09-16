@@ -8,8 +8,8 @@ Route::get('/', function () {
 
 Route::get('/login', function () {
     return view('credenciamento/login');
-});
+})->name("login");
 
-Route::get('/register', function () {
+Route::get('/cadastro', function () {
     return view('credenciamento/cadastro');
-});
+})->name('cadastro');
