@@ -26,8 +26,17 @@ Route::get('/update', function () {
     return view('usuario/update');
 })->name('update');
 
+
+
 Route::get('/createCompra',function (){
     return view('usuario/createCompra');
 })->name("createCompra");
 
+Route::get('/indexCompra',function (){
+    return view('usuario/indexCompra');
+})->name("IndexCompra");
+
+Route::get('/dashboards',function (){
+    return view('usuario/dashboards');
+})->name("dashboards");
 
