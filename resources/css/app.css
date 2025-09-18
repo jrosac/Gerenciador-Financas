@@ -9,3 +9,21 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+.apexcharts-title-text{
+    font-size: 20px;
+}
+.apexcharts-subtitle-text{
+    font-size: 15px;
+}
+
+/* Alteração na cor dos elementos gerados pelo ApexCharts */
+.apexcharts-title-text,
+.apexcharts-subtitle-text,
+.apexcharts-legend-text,
+.apexcharts-xaxis-label,
+.apexcharts-yaxis-label {
+    fill: #ffffff !important; /* força o branco */
+    color: #ffffff !important;
+}
+
