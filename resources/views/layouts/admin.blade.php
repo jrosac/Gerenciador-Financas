@@ -11,7 +11,7 @@
 <body>
     <div class="min-h-screen h-full bg-gradient-to-b bg-gray-900 to-green-900">
 
-        <header class="bg-black/70 backdrop-blur-md text-white flex justify-between sticky top-0 items-center m-0 p-1">
+        <header class="bg-black/70 backdrop-blur-md text-white flex justify-between sticky top-0 items-center m-0 p-1 z-1000">
             <a href="/"><img src="{{Vite::asset('resources/assets/logo4.png')}}" alt="Logo da empresa" class="w-22 h-18 m-0 p-0" ></a>
         <ul class="flex gap-6 mr-4">
           <li><a href="#" class="hover:text-green-300 text-lg">Home</a></li>
