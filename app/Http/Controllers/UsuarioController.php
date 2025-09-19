@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+
 
 class UsuarioController extends Controller
 {
@@ -26,18 +29,31 @@ class UsuarioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        DB:beginTransaction();
-        try{
-            $usuario = Usuario::create([
-                'nome' => $request->nome,
-                'email' => $request->email,
-                'senha' => bcrypt($request->senha),
-                
-            ]);
-        }
+
+public function store(Request $request)
+{
+    // Validação dos campos
+    $request->validate([
+        'nome' => 'required|string|max:255',
+        'email' => 'required|email|unique:usuarios,email',
+        'senha' => 'required|string|min:8|confirmed', // usa senha_confirmation automaticamente
+    ]);
+
+    DB::beginTransaction();
+    try {
+        $usuario = Usuario::create([
+            'nome' => $request->nome,
+            'email' => $request->email,
+            'senha' => Hash::make($request->senha), // Hash da senha
+        ]);
+
+        DB::commit();
+        return redirect()->route('welcome')->with('success', 'Usuário cadastrado com sucesso!');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return redirect()->back()->with('error', 'Erro ao cadastrar usuário: ' . $e->getMessage());
     }
+}
 
     /**
      * Display the specified resource.
