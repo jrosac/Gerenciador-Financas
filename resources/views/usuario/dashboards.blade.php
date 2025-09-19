@@ -29,7 +29,7 @@ $chartBarra = (new ArielMejiaDev\LarapexCharts\LarapexChart)->barChart()
      ->setGrid();
 
 $chartLinha = (new LarapexChart)->lineChart()
-    ->setTitle('Vendas Mensais - 2025')
+    ->setTitle('Gastos Mensais - 2025')
     ->setSubtitle('Valores em unidades')
     ->addData('Vendas', [120, 90, 150, 200, 170, 140, 220, 180, 160, 190, 210, 250])
     ->setXAxis([
