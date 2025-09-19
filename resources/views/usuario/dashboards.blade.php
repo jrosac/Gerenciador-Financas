@@ -49,24 +49,26 @@ $chartLinha = (new LarapexChart)->lineChart()
     Dashboards
 </h1>
 
-<div class="flex col">
+<div class="flex flex-col min-h-screen gap-6 px-6">
 
-<div class="flex min-h-screen gap-6 px-6">
-    <div class="w-1/2 pr-10">
-        {!! $chartPizza->container() !!}
+    <!-- Primeira linha com 2 gráficos lado a lado -->
+    <div class="flex gap-6 mb-10">
+        <div class="w-1/2 px-10">
+            {!! $chartPizza->container() !!}
+        </div>
+
+        <div class="w-1/2 px-10">
+            {!! $chartBarra->container() !!}
+        </div>
     </div>
 
-    <div class="w-1/2 pl-10">
-        {!! $chartBarra->container() !!}
-    </div>
-</div>
-
-    <div>
+    <!-- Linha de baixo com gráfico ocupando 100% -->
+    <div class="w-full">
         {!! $chartLinha->container() !!}
     </div>
 
-
 </div>
+
 
 
 
