@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 //-----------------------------------------------------------------
 
@@ -12,9 +13,9 @@ Route::get('/login', function () {
     return view('credenciamento/login');
 })->name("login");
 
-Route::get('/cadastro', function () {
-    return view('credenciamento/cadastro');
-})->name('cadastro');
+Route::get('/cadastro',[UsuarioController::class,'create'])->name('cadastro');
+
+Route::post('/cadastro',[UsuarioController::class,'store'])->name('cadastro.store');
 
 //-----------------------------------------------------------------
 
