@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="min-h-screen flex flex-col items-center p-6 text-white">
-    <h1 class="text-4xl font-bold mb-2 text-center">Bem-vindo ao Sistema, Fulano da Silva</h1>
+    <h1 class="text-4xl font-bold mb-2 text-center">Bem-vindo ao Sistema, {{$usuario->nome}}</h1>
     <p class="text-gray-300 mb-8 text-xl text-center">Aqui está um resumo do seu perfil e atividades recentes:</p>
 
     <!-- Resumo do usuário -->
