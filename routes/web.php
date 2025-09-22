@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
@@ -9,9 +10,9 @@ Route::get('/', function () {
 
 //-----------------------------------------------------------------
 
-Route::get('/login', function () {
-    return view('credenciamento/login');
-})->name("login");
+Route::get('/login',[AuthController::class,'index'])->name('login');
+
+Route::post('/login',[AuthController::class,'loginAttempt'])->name('auth');
 
 Route::get('/cadastro',[UsuarioController::class,'create'])->name('cadastro');
 
@@ -20,8 +21,13 @@ Route::post('/cadastro',[UsuarioController::class,'store'])->name('cadastro.stor
 //-----------------------------------------------------------------
 
 Route::get('/home', function () {
-    return view('usuario/home');
-})->name('usuario');
+    return 'Logado com sucesso!';
+})->name('home');
+
+
+// Route::get('/home', function () {
+//     return view('usuario/home');
+// })->name('usuario');
 
 Route::get('/update', function () {
     return view('usuario/update');
