@@ -60,10 +60,10 @@
         </div>
 
         <div class="flex flex-col">
-            <label for="formas_pagamento_id" class="text-white mb-1 font-medium">Categoria</label>
+            <label for="forma_pagamento_id" class="text-white mb-1 font-medium">Categoria</label>
             <select
-            name="formas_pagamento_id"
-            id="formas_pagamento_id"
+            name="forma_pagamento_id"
+            id="forma_pagamento_id"
             class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-400">
                 <option value="" disabled selected>Selecione uma forma de pagamento</option>
                 @foreach($formas_pagamento as $forma_pagamento)
