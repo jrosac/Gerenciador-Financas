@@ -6,6 +6,7 @@ use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 
 class UsuarioController extends Controller
@@ -58,9 +59,11 @@ public function store(Request $request)
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+        $usuario = Auth::user();
+        $compras = $usuario->compras;
+        return view('usuario.home', compact('usuario', 'compras'));
     }
 
     /**
