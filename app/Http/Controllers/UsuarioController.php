@@ -62,8 +62,13 @@ public function store(Request $request)
     public function show()
     {
         $usuario = Auth::user();
+        $idUsuario = $usuario->id;
         $compras = $usuario->compras;
-        return view('usuario.home', compact('usuario', 'compras'));
+        $valorTotalCompras = $compras->sum('valor');
+
+
+
+        return view('usuario.home', compact('usuario', 'compras', 'valorTotalCompras'));
     }
 
     /**
