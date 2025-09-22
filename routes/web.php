@@ -38,9 +38,8 @@ Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/home', function () {
-        return view('usuario/home');
-    })->name('home');
+    Route::get('/home', [UsuarioController::class, 'show'])->name('home');
+
 
     Route::get('/update', function () {
         return view('usuario/update');
