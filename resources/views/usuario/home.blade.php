@@ -2,6 +2,7 @@
 
 @section('content')
 
+
 <div class="min-h-screen flex flex-col items-center p-6 text-white">
     <h1 class="text-4xl font-bold mb-2 text-center">Bem-vindo ao Sistema, {{$usuario->nome}}</h1>
     <p class="text-gray-300 mb-8 text-xl text-center">Aqui está um resumo do seu perfil e atividades recentes:</p>
@@ -14,7 +15,7 @@
         </div>
         <div class="p-6 bg-gray-800 rounded-xl shadow text-center">
             <h2 class="text-2xl font-semibold">Gasto total</h2>
-            <p class="text-3xl mt-2">R$ 2.350,00</p>
+            <p class="text-3xl mt-2">R$ {{$valorTotalCompras}}</p>
         </div>
         <div class="p-6 bg-gray-800 rounded-xl shadow text-center">
             <h2 class="text-2xl font-semibold">Último Acesso</h2>
