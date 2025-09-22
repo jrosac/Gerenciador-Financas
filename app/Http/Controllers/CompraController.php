@@ -38,15 +38,19 @@ class CompraController extends Controller
         $request->validate([
             'descricao' => 'string|max:255',
             'valor' => 'required|numeric|min:0',
-            'categoria_id' => 'required|exists:categorias,id', // se tiver tabela de categorias
-        ]);
+            'categoria_id' => 'required|exists:categorias,id',
+            'data_compra' => 'required|date',
+            'forma_pagamento_id' => 'required|exists:formas_pagamento,id'
+]);
 
         // Cria a compra vinculada ao usuário autenticado
         $usuario = Auth::user();
         $usuario->compras()->create([
             'descricao' => $request->descricao,
             'valor' => $request->valor,
+            'data_compra' => $request->data_compra,
             'categoria_id' => $request->categoria_id,
+            'forma_pagamento_id' => $request->forma_pagamento_id,
         ]);
 
         return redirect()->route('home')
