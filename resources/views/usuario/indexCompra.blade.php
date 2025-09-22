@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="min-h-screen p-6 bg-gray-900 text-white">
+<div class="min-h-screen p-6  text-white">
     <h1 class="text-3xl font-bold mb-6 text-center">Lista de Compras</h1>
 
     <div class="overflow-x-auto">
