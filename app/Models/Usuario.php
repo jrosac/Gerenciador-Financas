@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Usuario extends Model
+class Usuario extends Authenticatable
 {
     protected $table = 'usuarios';
 
@@ -13,5 +14,10 @@ class Usuario extends Model
     function compras()
     {
         return $this->hasMany(Compra::class, 'usuario_id');
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->senha;
     }
 }
