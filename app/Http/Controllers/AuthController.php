@@ -30,9 +30,18 @@ class AuthController extends Controller
             return redirect()->intended('home');
         }
 
-        return back()->with('status', 'Credenciais inválidas!');
+        return back()->withInput()->with('status', 'Credenciais inválidas!');
 
 }
+
+    public function logout(Request $request){
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
+    }
 
 
 }
