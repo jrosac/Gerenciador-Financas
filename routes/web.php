@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CompraController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -45,9 +46,8 @@ Route::middleware(['auth'])->group(function () {
         return view('usuario/update');
     })->name('update');
 
-    Route::get('/createCompra', function () {
-        return view('usuario/createCompra');
-    })->name("createCompra");
+    Route::get('/createCompra', [CompraController::class, 'create'])->name('createCompra');
+    Route::post('/createCompra', [CompraController::class, 'store'])->name('createCompra.store');
 
     Route::get('/indexCompra', function () {
         return view('usuario/indexCompra');
