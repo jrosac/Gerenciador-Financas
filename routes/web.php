@@ -6,18 +6,28 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('welcome');
+})
+->name('welcome')
+->middleware('guest');
 
 //-----------------------------------------------------------------
 
 
-Route::get('/cadastro',[UsuarioController::class,'create'])->name('cadastro');
+Route::get('/cadastro',[UsuarioController::class,'create'])
+->name('cadastro')
+->middleware('guest');
 
-Route::post('/cadastro',[UsuarioController::class,'store'])->name('cadastro.store');
+Route::post('/cadastro',[UsuarioController::class,'store'])
+->name('cadastro.store')
+->middleware('guest');
 
-Route::get('/login',[AuthController::class,'index'])->name('login');
+Route::get('/login',[AuthController::class,'index'])
+->name('login')
+->middleware('guest');
 
-Route::post('/login',[AuthController::class,'loginAttempt'])->name('auth');
+Route::post('/login',[AuthController::class,'loginAttempt'])
+->name('auth')
+->middleware('guest');
 
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 
