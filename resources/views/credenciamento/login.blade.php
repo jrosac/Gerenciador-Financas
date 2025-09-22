@@ -2,12 +2,20 @@
 
 @section("content")
 
+@if (session('status'))
+    <div class="bg-red-500 text-white p-4 rounded mb-4">
+        {{ session('status') }}
+    </div>
+
+@endif
+
 <div class="max-w-md mx-auto mt-16 px-8 py-8 bg-black/70 backdrop-blur-md rounded-xl shadow-lg">
     <div class="flex justify-center">
         <img src="{{Vite::asset('resources/assets/logo4.png')}}" alt="Logo da empresa" class="h-20 mb-3">
     </div>
     <h1 class="text-3xl font-bold text-white text-center mb-6">Login</h1>
-    <form action="" class="flex flex-col gap-4">
+    <form action="{{route('auth')}}" method="POST" class="flex flex-col gap-4">
+        @csrf
 
         <div class="flex flex-col">
             <label for="email" class="text-white mb-1 font-medium">E-mail:</label>
