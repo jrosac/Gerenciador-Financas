@@ -6,6 +6,8 @@ use App\Models\FormaPagamento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Categoria;
+use ArielMejiaDev\LarapexCharts\LarapexChart;
+use Carbon\Carbon;
 
 class CompraController extends Controller
 {
@@ -95,5 +97,36 @@ class CompraController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function relatorio()
+    {
+$usuario = Auth::user();
+    $compras = $usuario->compras()->get();
+
+    // Inicializa um array com todos os meses zerados
+    $valoresPorMes = array_fill(1, 12, 0);
+
+    // Agrupa os valores por mês
+    foreach ($compras as $compra) {
+        $mes = Carbon::parse($compra->data_compra)->month; // pega o número do mês (1-12)
+        $valoresPorMes[$mes] += $compra->valor;
+    }
+
+    // Cria um gráfico de barras
+    $chartBarra = (new LarapexChart)->barChart()
+     ->setTitle('Gastos - 2025')
+     ->setSubtitle('Valores em reais')
+     ->addData('Vendas', array_values($valoresPorMes))
+     ->setXAxis([
+         'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+         'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
+     ])
+     ->setColors(['#10B981'])
+     ->setDataLabels(true)
+     ->setHeight(500)
+     ->setGrid();
+
+    return view('usuario.dashboards', compact('chartBarra'));
     }
 }
