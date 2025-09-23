@@ -78,7 +78,7 @@ public function store(Request $request)
 
          $ultimasCompras = Compra::where('usuario_id', $usuario->id)
         ->latest() // mesma coisa que ->orderBy('created_at', 'desc')
-        ->take(5)
+        ->take(3)
         ->get();
 
 
