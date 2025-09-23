@@ -15,8 +15,8 @@
             <a href="/"><img src="{{Vite::asset('resources/assets/logo4.png')}}" alt="Logo da empresa" class="w-22 h-18 m-0 p-0" ></a>
         <ul class="flex gap-6 mr-4">
           <li><a href="#" class="hover:text-green-300 text-lg">Home</a></li>
-          <li><a href="#" class="hover:text-green-300 text-lg">Sobre</a></li>
-          <li><a href="#" class="hover:text-green-300 text-lg">Contato</a></li>
+          <li><a href="#" class="hover:text-green-300 text-lg">Perfil</a></li>
+          <li><a href="#" class="hover:text-green-300 text-lg">Sair</a></li>
         </ul>
         </header>
 
