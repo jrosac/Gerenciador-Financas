@@ -26,24 +26,24 @@
     </div>
 
     <!-- Ações rápidas -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl mb-10">
-        <a href="{{route('update')}}" class="text-xl p-8 bg-blue-600 rounded-xl text-center shadow hover:scale-105 transition-transform duration-300">
-            Atualizar Perfil
-            <p class="text-sm mt-2 text-gray-200">Edite suas informações pessoais</p>
-        </a>
-        <a href="{{route("createCompra")}}" class="text-xl p-8 bg-green-600 rounded-xl text-center shadow hover:scale-105 transition-transform duration-300">
-            Cadastrar Compra
-            <p class="text-sm mt-2 text-gray-200">Adicione uma nova compra ao sistema</p>
-        </a>
-        <a href="{{route('dashboards')}}" class="text-xl p-8 bg-yellow-600 rounded-xl text-center shadow hover:scale-105 transition-transform duration-300">
-            Dashboards
-            <p class="text-sm mt-2 text-gray-200">Visualize gráficos e relatórios</p>
-        </a>
-        <a href="{{route('indexCompra')}}" class="text-xl p-8 bg-purple-600 rounded-xl text-center shadow hover:scale-105 transition-transform duration-300">
-            Listar Compras
-            <p class="text-sm mt-2 text-gray-200">Veja o histórico completo de compras</p>
-        </a>
-    </div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-3xl mb-10">
+
+    <a href="{{route('createCompra')}}" class="text-xl p-8 bg-green-600 rounded-xl text-center shadow hover:scale-105 transition-transform duration-300 md:col-span-2">
+        Cadastrar Compra
+        <p class="text-sm mt-2 text-gray-200">Adicione uma nova compra ao sistema</p>
+    </a>
+
+    <a href="{{route('dashboards')}}" class="text-xl p-8 bg-yellow-600 rounded-xl text-center shadow hover:scale-105 transition-transform duration-300">
+        Dashboards
+        <p class="text-sm mt-2 text-gray-200">Visualize gráficos e relatórios</p>
+    </a>
+
+    <a href="{{route('indexCompra')}}" class="text-xl p-8 bg-purple-600 rounded-xl text-center shadow hover:scale-105 transition-transform duration-300">
+        Listar Compras
+        <p class="text-sm mt-2 text-gray-200">Veja o histórico completo de compras</p>
+    </a>
+
+</div>
 
     <!-- Últimas atividades -->
     <div class="w-full max-w-3xl bg-gray-800 p-6 rounded-xl shadow">
