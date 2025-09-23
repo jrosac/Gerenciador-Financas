@@ -49,9 +49,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/createCompra', [CompraController::class, 'create'])->name('createCompra');
     Route::post('/createCompra', [CompraController::class, 'store'])->name('createCompra.store');
 
-    Route::get('/indexCompra', function () {
-        return view('usuario/indexCompra');
-    })->name("IndexCompra");
+    Route::get('/indexCompra', [CompraController::class, 'index'])->name('indexCompra');
 
     Route::get('/dashboards', function () {
         return view('usuario/dashboards');
