@@ -14,7 +14,15 @@ class CompraController extends Controller
      */
     public function index()
     {
-        //
+    $usuario = Auth::user();
+
+
+    $compras = $usuario->compras()->get();
+
+
+
+
+    return view('usuario.indexCompra', compact('compras'));
     }
 
     /**
@@ -36,7 +44,7 @@ class CompraController extends Controller
     {
         // Validação dos campos da compra
         $request->validate([
-            'descricao' => 'string|max:255',
+            'descricao' => 'nullable|string|max:255',
             'valor' => 'required|numeric|min:0',
             'categoria_id' => 'required|exists:categorias,id',
             'data_compra' => 'required|date',
