@@ -51,9 +51,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/indexCompra', [CompraController::class, 'index'])->name('indexCompra');
 
-    Route::get('/dashboards', function () {
-        return view('usuario/dashboards');
-    })->name("dashboards");
+    Route::get('/dashboards', [CompraController::class, 'relatorio'])->name('dashboards');
 
 
 });
