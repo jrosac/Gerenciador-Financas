@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use App\Models\Compra;
 
 
 class UsuarioController extends Controller
@@ -64,11 +66,25 @@ public function store(Request $request)
         $usuario = Auth::user();
         $idUsuario = $usuario->id;
         $compras = $usuario->compras;
+
         $valorTotalCompras = $compras->sum('valor');
+        $quantidadeCompras = $compras->count();
+
+        $agora = Carbon::now();
+        $totalMes = Compra::where('usuario_id', $usuario->id)
+        ->whereMonth('data_compra', $agora->month)
+        ->whereYear('data_compra', $agora->year)
+        ->sum('valor');
+
+         $ultimasCompras = Compra::where('usuario_id', $usuario->id)
+        ->latest() // mesma coisa que ->orderBy('created_at', 'desc')
+        ->take(5)
+        ->get();
 
 
 
-        return view('usuario.home', compact('usuario', 'compras', 'valorTotalCompras'));
+
+        return view('usuario.home', compact('usuario', 'compras', 'valorTotalCompras','quantidadeCompras',  'totalMes','ultimasCompras'));
     }
 
     /**
