@@ -2,6 +2,21 @@
 
 @section('content')
 
+<script>
+    // Se o usuário NÃO estiver logado, redireciona para a página de login
+    @guest
+        window.location.href = "{{ route('login') }}";
+    @endguest
+
+    // Detecta caso a página venha do cache do navegador (back/forward cache)
+    window.addEventListener("pageshow", function(event) {
+        if (event.persisted) {
+            @guest
+                window.location.href = "{{ route('login') }}";
+            @endguest
+        }
+    });
+</script>
 
 
 
