@@ -117,7 +117,7 @@ $usuario = Auth::user();
     $chartBarra = (new LarapexChart)->barChart()
      ->setTitle('Gastos - 2025')
      ->setSubtitle('Valores em reais')
-     ->addData('Vendas', array_values($valoresPorMes))
+     ->addData('Gastos', array_values($valoresPorMes))
      ->setXAxis([
          'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
          'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
