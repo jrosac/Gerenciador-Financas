@@ -30,7 +30,7 @@ Route::post('/login',[AuthController::class,'loginAttempt'])
 ->name('auth')
 ->middleware('guest');
 
-Route::get('/logout',[AuthController::class,'logout'])->name('logout');
+Route::post('/logout',[AuthController::class,'logout'])->name('logout');
 
 
 
