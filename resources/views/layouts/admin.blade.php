@@ -13,11 +13,32 @@
 
         <header class="bg-black/70 backdrop-blur-md text-white flex justify-between sticky top-0 items-center m-0 p-1 z-1000">
             <a href="/"><img src="{{Vite::asset('resources/assets/logo4.png')}}" alt="Logo da empresa" class="w-22 h-18 m-0 p-0" ></a>
+
+        @auth
         <ul class="flex gap-6 mr-4">
-          <li><a href="#" class="hover:text-green-300 text-lg">Home</a></li>
+          <li><a href="{{route('home')}}" class="hover:text-green-300 text-lg">Home</a></li>
           <li><a href="#" class="hover:text-green-300 text-lg">Perfil</a></li>
-          <li><a href="#" class="hover:text-green-300 text-lg">Sair</a></li>
+          <li class="hover:text-green-300 text-lg">
+            <form action="{{ route('logout') }}" method="POST">
+             @csrf
+             <button type="submit" class="hover:text-green-300 text-lg cursor-pointer">
+                 Sair
+             </button>
+             </form>
+          </li>
         </ul>
+
+        @endauth
+
+        @guest
+        <ul class="flex gap-6 mr-4">
+          <li><a href="{{route('welcome')}}" class="hover:text-green-300 text-lg">Principal</a></li>
+          <li><a href="{{route('cadastro')}}" class="hover:text-green-300 text-lg">Cadastro</a></li>
+          <li><a href="{{route('login')}}" class="hover:text-green-300 text-lg">Login</a></li>
+        @endguest
+
+
+
         </header>
 
         <div>
