@@ -2,6 +2,35 @@
 
 @section("content")
 
+<script>
+    // Redireciona imediatamente se o usuário estiver logado
+    @auth
+        window.location.href = "{{ route('home') }}";
+    @endauth
+
+    // Detecta quando o usuário usa o botão voltar/avançar do navegador
+    window.addEventListener("popstate", function (event) {
+        @auth
+            if (window.location.pathname === "{{ route('login', [], false) }}") {
+                window.location.href = "{{ route('home') }}";
+            }
+        @endauth
+    });
+
+    // Opcional: força reload ao voltar para garantir que o cache não mostre a página antiga
+    window.addEventListener("pageshow", function(event) {
+        if (event.persisted) {
+            @auth
+                if (window.location.pathname === "{{ route('login', [], false) }}") {
+                    window.location.href = "{{ route('home') }}";
+                }
+            @endauth
+        }
+    });
+</script>
+
+
+
 @if (session('status'))
     <div class="bg-red-500 text-white p-4 rounded mb-4">
         {{ session('status') }}
