@@ -27,6 +27,7 @@
             <input
                 type="date"
                 name="data_compra"
+                value="{{date('Y-m-d')}}"
                 id="data_compra"
                 class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-400"
             >
