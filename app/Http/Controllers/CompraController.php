@@ -6,8 +6,7 @@ use App\Models\FormaPagamento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Categoria;
-use ArielMejiaDev\LarapexCharts\LarapexChart;
-use Carbon\Carbon;
+use App\Http\Requests\Compra\StoreRequest;
 use App\Models\Compra;
 
 class CompraController extends Controller
@@ -43,30 +42,15 @@ class CompraController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        // Validação dos campos da compra
-        $request->validate([
-            'descricao' => 'nullable|string|max:255',
-            'valor' => 'required|numeric|min:0',
-            'categoria_id' => 'required|exists:categorias,id',
-            'data_compra' => 'required|date',
-            'forma_pagamento_id' => 'required|exists:formas_pagamento,id'
-]);
+public function store(StoreRequest $request)
+{
+    $usuario = auth()->user();
 
-        // Cria a compra vinculada ao usuário autenticado
-        $usuario = Auth::user();
-        $usuario->compras()->create([
-            'descricao' => $request->descricao,
-            'valor' => $request->valor,
-            'data_compra' => $request->data_compra,
-            'categoria_id' => $request->categoria_id,
-            'forma_pagamento_id' => $request->forma_pagamento_id,
-        ]);
+    $usuario->compras()->create($request->validated());
 
-        return redirect()->route('home')
-                         ->with('success', 'Compra criada com sucesso!');
-    }
+    return redirect()->route('home')
+                     ->with('success', 'Compra criada com sucesso!');
+}
 
     /**
      * Display the specified resource.
