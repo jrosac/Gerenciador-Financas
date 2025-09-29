@@ -55,7 +55,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/indexCompra', [CompraController::class, 'index'])->name('indexCompra');
 
-    Route::get('/dashboards', [CompraController::class, 'relatorio'])->name('dashboards');
+    Route::get('/dashboards', [UsuarioController::class, 'relatorio'])->name('dashboards');
 
     Route::get('/perfil',[UsuarioController::class,'showPerfil'])->name('perfil');
     Route::put('/', [UsuarioController::class, 'update'])->name('perfilUpdate');
