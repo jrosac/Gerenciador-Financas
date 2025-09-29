@@ -17,7 +17,7 @@
         @auth
         <ul class="flex gap-6 mr-4">
           <li><a href="{{route('home')}}" class="hover:text-green-300 text-lg">Home</a></li>
-          <li><a href="#" class="hover:text-green-300 text-lg">Perfil</a></li>
+          <li><a href="{{route('perfil')}}" class="hover:text-green-300 text-lg">Perfil</a></li>
           <li class="hover:text-green-300 text-lg">
             <form action="{{ route('logout') }}" method="POST">
              @csrf

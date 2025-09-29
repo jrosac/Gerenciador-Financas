@@ -87,6 +87,12 @@ public function store(Request $request)
         return view('usuario.home', compact('usuario', 'compras', 'valorTotalCompras','quantidadeCompras',  'totalMes','ultimasCompras'));
     }
 
+    public function showPerfil(){
+        $usuario = Auth::user();
+
+        return view('usuario.showUser', compact('usuario'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
