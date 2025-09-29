@@ -16,6 +16,9 @@
             <input type="text" name="valor" id="valor" value="{{ $compra->valor }}"
                    class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
                    readonly>
+            @error('valor')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Data -->
@@ -24,6 +27,9 @@
             <input type="date" name="data_compra" id="data_compra" value="{{ \Carbon\Carbon::parse($compra->data_compra)->format('Y-m-d') }}"
                    class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
                    readonly>
+             @error('data_compra')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Descrição -->
@@ -32,6 +38,9 @@
             <input type="text" name="descricao" id="descricao" value="{{ $compra->descricao ?? '' }}"
                    class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
                    readonly>
+            @error('descricao')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Categoria -->
@@ -46,6 +55,9 @@
                     </option>
                 @endforeach
             </select>
+            @error('categoria_id')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Forma de Pagamento -->
@@ -60,6 +72,9 @@
                     </option>
                 @endforeach
             </select>
+            @error('forma_pagamento_id')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Botões Editar / Salvar -->
