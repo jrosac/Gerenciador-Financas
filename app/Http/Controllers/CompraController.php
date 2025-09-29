@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Categoria;
 use App\Http\Requests\Compra\StoreRequest;
 use App\Models\Compra;
+use App\Http\Requests\Compra\UpdateRequest;
 
 class CompraController extends Controller
 {
@@ -77,33 +78,17 @@ public function store(StoreRequest $request)
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
-    {
-        // Validação
-        $request->validate([
-            'valor' => 'required|numeric',
-            'data_compra' => 'required|date',
-            'descricao' => 'nullable|string|max:255',
-            'categoria_id' => 'required|exists:categorias,id',
-            'forma_pagamento_id' => 'required|exists:formas_pagamento,id',
-        ]);
 
-        // Busca a compra
-        $compra = Compra::findOrFail($id);
+public function update(UpdateRequest $request, $id)
+{
+    $compra = Compra::findOrFail($id);
 
-        // Atualiza os campos
-        $compra->valor = $request->valor;
-        $compra->data_compra = $request->data_compra;
-        $compra->descricao = $request->descricao;
-        $compra->categoria_id = $request->categoria_id;
-        $compra->forma_pagamento_id = $request->forma_pagamento_id;
+    $compra->update($request->validated());
 
-        $compra->save();
+    return redirect()->route('indexCompra')
+                     ->with('success', 'Compra atualizada com sucesso!');
+}
 
-        // Redireciona de volta para o show com mensagem de sucesso
-        return redirect()->route('perfilCompra', $compra->id)
-                         ->with('success', 'Compra atualizada com sucesso!');
-    }
     /**
      * Remove the specified resource from storage.
      */
