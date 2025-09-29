@@ -104,9 +104,24 @@ public function store(Request $request)
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $usuario = Auth::user(); // Sempre o próprio usuário
+
+        // Validação
+        $request->validate([
+            'nome'  => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $usuario->id,
+        ]);
+
+        // Atualiza os campos
+        $usuario->nome = $request->nome;
+        $usuario->email = $request->email;
+        $usuario->save();
+
+        // Redireciona de volta com mensagem de sucesso
+        return redirect()->route('perfil')
+                         ->with('success', 'Perfil atualizado com sucesso!');
     }
 
     /**
