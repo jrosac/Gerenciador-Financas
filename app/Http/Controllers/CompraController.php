@@ -125,7 +125,10 @@ class CompraController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $compa= Compra::findOrFail($id);
+        $compa->delete();
+        return redirect()->route('indexCompra')
+                         ->with('success', 'Compra deletada com sucesso!');
     }
 
 

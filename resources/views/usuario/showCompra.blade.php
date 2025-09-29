@@ -66,21 +66,29 @@
         </div>
 
         <!-- Botões -->
-        <div class="flex gap-4 mt-4">
+        <div class="flex flex-col gap-4 mt-4">
+            <!-- Botão Editar -->
             <button type="button" id="editarBtn"
                     class="w-full bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-colors cursor-pointer">
                 Editar
             </button>
+
+            <!-- Botão Salvar -->
             <button type="submit" id="salvarBtn"
                     class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-colors hidden cursor-pointer">
                 Salvar
             </button>
-        </div>
 
-        <a href="{{ route('indexCompra') }}"
-           class="mt-4 text-center w-full bg-gray-600 hover:bg-gray-500 transition-colors text-white font-bold py-2 px-4 rounded-lg shadow-md cursor-pointer block">
-            Voltar
-        </a>
+            <!-- Botão Deletar -->
+            <form action="{{ route('deletarCompra', $compra->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar esta compra?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit"
+                        class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-colors cursor-pointer">
+                    Deletar
+                </button>
+            </form>
+        </div>
 
     </form>
 </div>
