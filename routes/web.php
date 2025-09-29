@@ -51,7 +51,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/createCompra', [CompraController::class, 'store'])->name('createCompra.store');
 
     Route::get('/compra/{id}', [CompraController::class, 'show'])->name('perfilCompra');
-
     Route::put('/{id}', [CompraController::class, 'update'])->name('atualizarCompra');
 
     Route::get('/indexCompra', [CompraController::class, 'index'])->name('indexCompra');
@@ -59,6 +58,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboards', [CompraController::class, 'relatorio'])->name('dashboards');
 
     Route::get('/perfil',[UsuarioController::class,'showPerfil'])->name('perfil');
+    Route::put('/', [UsuarioController::class, 'update'])->name('perfilUpdate');
 
 
 
