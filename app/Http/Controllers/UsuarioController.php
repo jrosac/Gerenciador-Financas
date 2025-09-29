@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Compra;
+use ArielMejiaDev\LarapexCharts\LarapexChart;
 
 
 class UsuarioController extends Controller
@@ -104,9 +105,24 @@ public function store(Request $request)
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $usuario = Auth::user(); // Sempre o próprio usuário
+
+        // Validação
+        $request->validate([
+            'nome'  => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email,' . $usuario->id,
+        ]);
+
+        // Atualiza os campos
+        $usuario->nome = $request->nome;
+        $usuario->email = $request->email;
+        $usuario->save();
+
+        // Redireciona de volta com mensagem de sucesso
+        return redirect()->route('perfil')
+                         ->with('success', 'Perfil atualizado com sucesso!');
     }
 
     /**
@@ -116,4 +132,87 @@ public function store(Request $request)
     {
         //
     }
+
+    public function relatorio()
+{
+    $usuario = Auth::user();
+    $compras = $usuario->compras()->get();
+
+    // -----------------------------
+    // Gráfico de barras - Gastos por mês
+    // -----------------------------
+    $valoresPorMes = array_fill(1, 12, 0);
+    foreach ($compras as $compra) {
+        $mes = Carbon::parse($compra->data_compra)->month; // número do mês (1-12)
+        $valoresPorMes[$mes] += $compra->valor;
+    }
+
+    $chartBarra = (new LarapexChart)->barChart()
+        ->setTitle('Gastos - 2025')
+        ->setSubtitle('Valores em reais')
+        ->addData('Gastos', array_values($valoresPorMes))
+        ->setXAxis([
+            'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun',
+            'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
+        ])
+        ->setColors(['#10B981'])
+        ->setDataLabels(true)
+        ->setHeight(500)
+        ->setGrid();
+
+    // -----------------------------
+    // Gráfico de pizza - Faixa de valor
+    // -----------------------------
+    $contagem = [
+        'Alta (>50)' => 0,
+        'Normal (20-50)' => 0,
+        'Baixa (<20)' => 0,
+    ];
+
+    foreach ($compras as $compra) {
+        if ($compra->valor > 50) {
+            $contagem['Alta (>50)']++;
+        } elseif ($compra->valor >= 20) {
+            $contagem['Normal (20-50)']++;
+        } else {
+            $contagem['Baixa (<20)']++;
+        }
+    }
+
+    $chartPizza = (new LarapexChart)->pieChart()
+        ->setTitle('Distribuição de Compras por Valor')
+        ->setSubtitle('Quantidade de compras por faixa de valor')
+        ->addData(array_values($contagem))
+        ->setLabels(array_keys($contagem))
+        ->setColors(['#EF4444', '#F59E0B', '#10B981']); // Alta-vermelho, Normal-laranja, Baixa-verde
+
+    // -----------------------------
+    // Gráfico de linha - Gastos por dia do mês atual
+    // -----------------------------
+    $diasNoMes = Carbon::now()->daysInMonth; // número de dias no mês atual
+    $valoresPorDia = array_fill(1, $diasNoMes, 0);
+
+    foreach ($compras as $compra) {
+        $data = Carbon::parse($compra->data_compra);
+        if ($data->month == Carbon::now()->month && $data->year == Carbon::now()->year) {
+            $valoresPorDia[$data->day] += $compra->valor;
+        }
+    }
+
+    $chartLinha = (new LarapexChart)->lineChart()
+        ->setTitle('Gastos do Mês Atual')
+        ->setSubtitle('Valores por dia')
+        ->addData('Gastos', array_values($valoresPorDia))
+        ->setXAxis(range(1, $diasNoMes))
+        ->setColors(['#3B82F6'])
+        ->setDataLabels(true)
+        ->setHeight(400)
+        ->setGrid();
+
+    // -----------------------------
+    // Retorna a view com todos os gráficos
+    // -----------------------------
+    return view('usuario.dashboards', compact('chartBarra', 'chartPizza', 'chartLinha'));
+}
+
 }

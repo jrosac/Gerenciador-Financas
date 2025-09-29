@@ -20,9 +20,11 @@
             </thead>
             <tbody class="divide-y divide-gray-700">
                 @foreach ($compras as $compra )
-                                <tr class="hover:bg-gray-700 transition-colors">
+
+                <tr class="hover:bg-gray-700 transition-colors cursor-pointer"
+                    onclick="window.location='{{ route('perfilCompra', $compra->id) }}'">
                     <td class="py-4 px-6">R$ {{$compra->valor}}</td>
-                    <td class="py-4 px-6">{{$compra->data_compra}}</td>
+                    <td class="py-4 px-6">{{ \Carbon\Carbon::parse($compra->data_compra)->format('d-m-Y') }}</td>
                     <td class="py-4 px-6">{{$compra->descricao != null ? $compra->descricao : "N/A"}}</td>
                     <td class="py-4 px-6">{{$compra->categoria->nome}}</td>
                     <td class="py-4 px-6">{{$compra->formaPagamento->nome}}</td>

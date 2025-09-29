@@ -65,7 +65,7 @@
         <h2 class="text-2xl font-semibold mb-4">Últimas Compras</h2>
         <ul class="space-y-2">
             @foreach ($ultimasCompras as $compra )
-            <li class="p-2 bg-gray-700 rounded">R${{$compra->valor}} - {{$compra->data_compra}} -> {{$compra->descricao != null ? $compra->descricao: "Sem Descrição"}}</li>
+            <li class="p-2 bg-gray-700 rounded">R${{$compra->valor}} - {{ \Carbon\Carbon::parse($compra->data_compra)->format('d-m-Y') }} -> {{$compra->descricao != null ? $compra->descricao: "Sem Descrição"}}</li>
             @endforeach
 
         </ul>
