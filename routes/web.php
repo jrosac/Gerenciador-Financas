@@ -47,8 +47,12 @@ Route::middleware(['auth'])->group(function () {
     })->name('update');
 
     Route::get('/createCompra', [CompraController::class, 'create'])->name('createCompra');
+
     Route::post('/createCompra', [CompraController::class, 'store'])->name('createCompra.store');
+
     Route::get('/compra/{id}', [CompraController::class, 'show'])->name('perfilCompra');
+
+    Route::put('/{id}', [CompraController::class, 'update'])->name('atualizarCompra');
 
     Route::get('/indexCompra', [CompraController::class, 'index'])->name('indexCompra');
 
