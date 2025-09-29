@@ -53,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboards', [CompraController::class, 'relatorio'])->name('dashboards');
 
+    Route::get('/perfil',[UsuarioController::class,'showPerfil'])->name('perfil');
 
 });
 
