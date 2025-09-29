@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Categoria;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 use Carbon\Carbon;
+use App\Models\Compra;
 
 class CompraController extends Controller
 {
@@ -72,7 +73,11 @@ class CompraController extends Controller
      */
     public function show(string $id)
     {
-        //
+           // Busca a compra pelo ID
+    $compra = Compra::with(['categoria', 'formaPagamento'])->findOrFail($id);
+
+    // Retorna a view com os dados da compra
+    return view('usuario.showCompra', compact('compra'));
     }
 
     /**
