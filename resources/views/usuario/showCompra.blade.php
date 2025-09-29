@@ -8,46 +8,100 @@
     </div>
     <h1 class="text-3xl font-bold text-white text-center mb-6">Detalhes da Compra</h1>
 
-    <div class="flex flex-col gap-4 text-white">
+    <!-- Formulário Dinâmico -->
+    <form action="{{ route('atualizarCompra', $compra->id) }}" method="POST" id="compraForm" class="flex flex-col gap-4">
+        @csrf
+        @method('PUT')
 
-        <div class="bg-gray-800 p-4 rounded-lg shadow-md flex justify-between items-center">
-            <span class="font-medium text-gray-300">Valor da Compra:</span>
-            <span class="text-green-400 font-bold text-lg">R$ {{ $compra->valor }}</span>
+        <!-- Valor -->
+        <div class="flex flex-col">
+            <label for="valor" class="text-gray-300 font-medium mb-1">Valor da Compra:</label>
+            <input type="text" name="valor" id="valor" value="{{ $compra->valor }}"
+                   class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+                   readonly>
         </div>
 
-        <div class="bg-gray-800 p-4 rounded-lg shadow-md flex justify-between items-center">
-            <span class="font-medium text-gray-300">Data da Compra:</span>
-            <span class="text-white font-semibold text-lg">{{ $compra->data_compra }}</span>
+        <!-- Data -->
+        <div class="flex flex-col">
+            <label for="data_compra" class="text-gray-300 font-medium mb-1">Data da Compra:</label>
+            <input type="date" name="data_compra" id="data_compra" value="{{ $compra->data_compra }}"
+                   class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+                   readonly>
         </div>
 
-        <div class="bg-gray-800 p-4 rounded-lg shadow-md flex justify-between items-center">
-            <span class="font-medium text-gray-300">Descrição:</span>
-            <span class="text-white font-semibold text-lg">{{ $compra->descricao ?? 'N/A' }}</span>
+        <!-- Descrição -->
+        <div class="flex flex-col">
+            <label for="descricao" class="text-gray-300 font-medium mb-1">Descrição:</label>
+            <input type="text" name="descricao" id="descricao" value="{{ $compra->descricao ?? '' }}"
+                   class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
+                   readonly>
         </div>
 
-        <div class="bg-gray-800 p-4 rounded-lg shadow-md flex justify-between items-center">
-            <span class="font-medium text-gray-300">Categoria:</span>
-            <span class="font-bold text-lg">{{ $compra->categoria->nome }}</span>
+        <!-- Categoria -->
+        <div class="flex flex-col">
+            <label for="categoria_id" class="text-gray-300 font-medium mb-1">Categoria:</label>
+            <select name="categoria_id" id="categoria_id"
+                    class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+                    disabled>
+                @foreach($categorias as $categoria)
+                    <option value="{{ $categoria->id }}" {{ $compra->categoria_id == $categoria->id ? 'selected' : '' }}>
+                        {{ $categoria->nome }}
+                    </option>
+                @endforeach
+            </select>
         </div>
 
-        <div class="bg-gray-800 p-4 rounded-lg shadow-md flex justify-between items-center">
-            <span class="font-medium text-gray-300">Forma de Pagamento:</span>
-            <span class=" font-bold text-lg">{{ $compra->formaPagamento->nome }}</span>
+        <!-- Forma de Pagamento -->
+        <div class="flex flex-col">
+            <label for="forma_pagamento_id" class="text-gray-300 font-medium mb-1">Forma de Pagamento:</label>
+            <select name="forma_pagamento_id" id="forma_pagamento_id"
+                    class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+                    disabled>
+                @foreach($formas_pagamento as $forma)
+                    <option value="{{ $forma->id }}" {{ $compra->forma_pagamento_id == $forma->id ? 'selected' : '' }}>
+                        {{ $forma->nome }}
+                    </option>
+                @endforeach
+            </select>
         </div>
 
-        <!-- Botão Voltar -->
+        <!-- Botões -->
+        <div class="flex gap-4 mt-4">
+            <button type="button" id="editarBtn"
+                    class="w-full bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-colors cursor-pointer">
+                Editar
+            </button>
+            <button type="submit" id="salvarBtn"
+                    class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-colors hidden cursor-pointer">
+                Salvar
+            </button>
+        </div>
+
         <a href="{{ route('indexCompra') }}"
-           class="mt-6 text-center w-full bg-green-600 hover:bg-green-500 transition-colors text-white font-bold py-2 px-4 rounded-lg shadow-md cursor-pointer block">
+           class="mt-4 text-center w-full bg-gray-600 hover:bg-gray-500 transition-colors text-white font-bold py-2 px-4 rounded-lg shadow-md cursor-pointer block">
             Voltar
         </a>
 
-        <!-- Botão Editar -->
-        <a href="#"
-           class="mt-2 text-center w-full bg-yellow-500 hover:bg-yellow-400 transition-colors text-white font-bold py-2 px-4 rounded-lg shadow-md cursor-pointer block">
-            Editar
-        </a>
-
-    </div>
+    </form>
 </div>
+
+<!-- Script para tornar campos editáveis -->
+<script>
+    const editarBtn = document.getElementById('editarBtn');
+    const salvarBtn = document.getElementById('salvarBtn');
+    const form = document.getElementById('compraForm');
+
+    editarBtn.addEventListener('click', () => {
+        // Torna todos inputs e selects editáveis
+        form.querySelectorAll('input, select').forEach(el => {
+            el.removeAttribute('readonly');
+            el.removeAttribute('disabled');
+        });
+
+        // Mostra o botão salvar e esconde o botão editar
+        editarBtn.classList.add('hidden');
+        salvarBtn.classList.remove('hidden');
+    });
+</script>
 
 @endsection
