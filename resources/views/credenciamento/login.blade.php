@@ -2,12 +2,49 @@
 
 @section("content")
 
+<script>
+    // Redireciona imediatamente se o usuário estiver logado
+    @auth
+        window.location.href = "{{ route('home') }}";
+    @endauth
+
+    // Detecta quando o usuário usa o botão voltar/avançar do navegador
+    window.addEventListener("popstate", function (event) {
+        @auth
+            if (window.location.pathname === "{{ route('login', [], false) }}") {
+                window.location.href = "{{ route('home') }}";
+            }
+        @endauth
+    });
+
+    // Opcional: força reload ao voltar para garantir que o cache não mostre a página antiga
+    window.addEventListener("pageshow", function(event) {
+        if (event.persisted) {
+            @auth
+                if (window.location.pathname === "{{ route('login', [], false) }}") {
+                    window.location.href = "{{ route('home') }}";
+                }
+            @endauth
+        }
+    });
+</script>
+
+
+
+@if (session('status'))
+    <div class="bg-red-500 text-white p-4 rounded mb-4">
+        {{ session('status') }}
+    </div>
+
+@endif
+
 <div class="max-w-md mx-auto mt-16 px-8 py-8 bg-black/70 backdrop-blur-md rounded-xl shadow-lg">
     <div class="flex justify-center">
         <img src="{{Vite::asset('resources/assets/logo4.png')}}" alt="Logo da empresa" class="h-20 mb-3">
     </div>
     <h1 class="text-3xl font-bold text-white text-center mb-6">Login</h1>
-    <form action="" class="flex flex-col gap-4">
+    <form action="{{route('auth')}}" method="POST" class="flex flex-col gap-4">
+        @csrf
 
         <div class="flex flex-col">
             <label for="email" class="text-white mb-1 font-medium">E-mail:</label>
@@ -33,7 +70,7 @@
 
         <button
             type="submit"
-            class="mt-4 w-full bg-green-600 hover:bg-green-500 transition-colors text-white font-bold py-2 px-4 rounded-lg shadow-md"
+            class="mt-4 w-full bg-green-600 hover:bg-green-500 transition-colors text-white font-bold py-2 px-4 rounded-lg shadow-md cursor-pointer"
         >
             Entrar
         </button>

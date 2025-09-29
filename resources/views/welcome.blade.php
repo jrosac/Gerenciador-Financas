@@ -2,6 +2,13 @@
 
 @section('content')
 
+@if(session('success'))
+    <div class="bg-green-600 text-white p-3 rounded mb-4">
+        {{ session('success') }}
+    </div>
+@endif
+
+
 <div class="min-h-screen  flex flex-col items-center p-8">
     <h1 class="text-gray-200 text-5xl w-full text-center font-bold mb-20">Gerenciador de Finanças</h1>
 
