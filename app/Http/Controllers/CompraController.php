@@ -72,13 +72,15 @@ class CompraController extends Controller
      * Display the specified resource.
      */
     public function show(string $id)
-    {
-           // Busca a compra pelo ID
+{
     $compra = Compra::with(['categoria', 'formaPagamento'])->findOrFail($id);
 
-    // Retorna a view com os dados da compra
-    return view('usuario.showCompra', compact('compra'));
-    }
+    // Carrega todas categorias e formas de pagamento para popular os selects
+    $categorias = Categoria::all();
+    $formas_pagamento = FormaPagamento::all();
+
+    return view('usuario.showCompra', compact('compra', 'categorias', 'formas_pagamento'));
+}
 
     /**
      * Show the form for editing the specified resource.
@@ -91,11 +93,33 @@ class CompraController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
-    }
+        // Validação
+        $request->validate([
+            'valor' => 'required|numeric',
+            'data_compra' => 'required|date',
+            'descricao' => 'nullable|string|max:255',
+            'categoria_id' => 'required|exists:categorias,id',
+            'forma_pagamento_id' => 'required|exists:formas_pagamento,id',
+        ]);
 
+        // Busca a compra
+        $compra = Compra::findOrFail($id);
+
+        // Atualiza os campos
+        $compra->valor = $request->valor;
+        $compra->data_compra = $request->data_compra;
+        $compra->descricao = $request->descricao;
+        $compra->categoria_id = $request->categoria_id;
+        $compra->forma_pagamento_id = $request->forma_pagamento_id;
+
+        $compra->save();
+
+        // Redireciona de volta para o show com mensagem de sucesso
+        return redirect()->route('perfilCompra', $compra->id)
+                         ->with('success', 'Compra atualizada com sucesso!');
+    }
     /**
      * Remove the specified resource from storage.
      */
