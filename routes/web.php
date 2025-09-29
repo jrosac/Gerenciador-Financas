@@ -48,12 +48,15 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/createCompra', [CompraController::class, 'create'])->name('createCompra');
     Route::post('/createCompra', [CompraController::class, 'store'])->name('createCompra.store');
+    Route::get('/compra/{id}', [CompraController::class, 'show'])->name('perfilCompra');
 
     Route::get('/indexCompra', [CompraController::class, 'index'])->name('indexCompra');
 
     Route::get('/dashboards', [CompraController::class, 'relatorio'])->name('dashboards');
 
     Route::get('/perfil',[UsuarioController::class,'showPerfil'])->name('perfil');
+
+
 
 });
 
