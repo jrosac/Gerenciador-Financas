@@ -1,61 +1,210 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Gerenciador Financeiro
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Um sistema web para gerenciar compras, categorias e formas de pagamento, com visualização de gastos através de gráficos. Desenvolvido em **Laravel 12** com **PHP 8.3**.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Tecnologias Utilizadas
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* PHP 8.3
+* Laravel 12
+* MySQL
+* Tailwind CSS
+* LarapexCharts (para gráficos)
+* Composer
+* Node.js e npm
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Requisitos
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+* PHP >= 8.0
+* Composer
+* MySQL
+* Node.js >= 16
+* npm >= 8
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Instalação
 
-## Laravel Sponsors
+1. Clone o repositório:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+git clone https://github.com/seu-usuario/gerenciador-financeiro.git
+cd gerenciador-financeiro
+```
 
-### Premium Partners
+2. Instale as dependências PHP:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```bash
+composer install
+```
 
-## Contributing
+3. Instale as dependências JS:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+npm install
+npm run dev
+```
 
-## Code of Conduct
+4. Copie o arquivo `.env.example` para `.env`:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+cp .env.example .env
+```
 
-## Security Vulnerabilities
+5. Gere a chave da aplicação:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+php artisan key:generate
+```
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Configuração do Banco de Dados
+
+1. Crie um banco de dados MySQL, por exemplo `gerenciador_financeiro`.
+2. Configure suas credenciais no `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=gerenciador_financeiro
+DB_USERNAME=seu_usuario
+DB_PASSWORD=sua_senha
+```
+
+3. Execute as migrations:
+
+```bash
+php artisan migrate
+```
+
+4. (Opcional) Execute os seeders para popular dados iniciais:
+
+```bash
+php artisan db:seed
+```
+
+---
+
+## Rodando o Projeto
+
+```bash
+php artisan serve
+```
+
+O sistema estará disponível em: [http://localhost:8000](http://localhost:8000)
+
+---
+
+## Estrutura de Rotas Principais
+
+| Método | Rota               | Descrição                 |
+| ------ | ------------------ | ------------------------- |
+| GET    | /login             | Tela de login             |
+| POST   | /login             | Autenticação do usuário   |
+| GET    | /register          | Tela de registro          |
+| POST   | /register          | Criação de novo usuário   |
+| GET    | /home              | Página inicial após login |
+| GET    | /compras           | Listar compras do usuário |
+| POST   | /compras           | Criar nova compra         |
+| GET    | /compras/{id}/edit | Editar compra             |
+| PUT    | /compras/{id}      | Atualizar compra          |
+| DELETE | /compras/{id}      | Deletar compra            |
+
+> Observação: rotas de autenticação podem estar protegidas pelo middleware `auth`.
+
+---
+
+## Funcionalidades
+
+* **Usuários**
+
+  * Registro e login
+  * Autenticação e restrição de acesso a páginas privadas
+
+* **Compras**
+
+  * Cadastro, edição, listagem e exclusão
+  * Associação com categoria e forma de pagamento
+  * Relatórios por mês ou por dia
+
+* **Categorias**
+
+  * Cadastro e listagem de categorias para organizar compras
+
+* **Formas de Pagamento**
+
+  * Cadastro e listagem de formas de pagamento (Cartão, Dinheiro, etc.)
+
+* **Gráficos de Gastos**
+
+  * Pizza: Distribuição de gastos por categoria
+  * Barra: Comparativo de gastos por categoria ou mês
+  * Linha: Gastos ao longo dos dias do mês
+
+* **Extras**
+
+  * Variáveis calculadas no controller, como `status` ou total gasto
+  * Filtragem de dados para relatórios dinâmicos
+
+---
+
+## Comandos Úteis
+
+* Rodar migrations:
+
+```bash
+php artisan migrate
+```
+
+* Criar um novo controller:
+
+```bash
+php artisan make:controller NomeController
+```
+
+* Criar uma nova model:
+
+```bash
+php artisan make:model NomeModel -m
+```
+
+* Rodar seeders:
+
+```bash
+php artisan db:seed
+```
+
+* Limpar cache de configuração:
+
+```bash
+php artisan config:clear
+php artisan cache:clear
+```
+
+* Compilar assets:
+
+```bash
+npm run dev      # desenvolvimento
+npm run build    # produção
+```
+
+---
+
+## Como Contribuir
+
+1. Faça um fork do projeto
+2. Crie sua branch: `git checkout -b minha-feature`
+3. Faça as alterações e commit: `git commit -m "Minha feature"`
+4. Envie para o repositório remoto: `git push origin minha-feature`
+5. Abra um Pull Request
+
+---
+
+## Licença
+
+MIT License
