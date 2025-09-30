@@ -203,4 +203,41 @@ public function update(UpdateRequest $request)
     return view('usuario.dashboards', compact('chartBarra', 'chartPizza', 'chartLinha'));
 }
 
+public function generatePdf()
+{
+    $usuario = Auth::user();
+
+    // Compras do ano atual
+    $compras = $usuario->compras()->orderBy('created_at', 'desc')->get();
+
+    // Compras do mês atual
+    $mesAtual = now()->month;
+    $anoAtual = now()->year;
+    $comprasMensais = $compras->where('created_at.month', $mesAtual);
+
+    // Relatório anual: total gasto por mês
+    $gastosPorMes = [];
+    for ($m = 1; $m <= 12; $m++) {
+        $gastosPorMes[$m] = $compras->filter(function($c) use ($m, $anoAtual) {
+            return $c->created_at->month == $m && $c->created_at->year == $anoAtual;
+        })->sum('valor');
+    }
+
+    $totalGastoMensal = $comprasMensais->sum('valor');
+    $quantidadeComprasMensal = $comprasMensais->count();
+
+    $pdf = app('dompdf.wrapper');
+    $pdf->loadView('usuario.relatorioPdf', compact(
+        'usuario',
+        'comprasMensais',
+        'totalGastoMensal',
+        'quantidadeComprasMensal',
+        'gastosPorMes',
+        'anoAtual'
+    ));
+
+    return $pdf->download('relatorio_compras_' . now()->format('Y_m_d') . '.pdf');
+}
+
+
 }
