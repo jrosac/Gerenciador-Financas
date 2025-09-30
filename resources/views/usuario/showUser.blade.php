@@ -34,6 +34,9 @@
             <input type="text" name="nome" id="nome" value="{{ $usuario->nome }}"
                    class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
                    readonly>
+            @error('nome')
+                <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
+            @enderror
         </div>
 
         <!-- Email -->
@@ -42,6 +45,9 @@
             <input type="email" name="email" id="email" value="{{ $usuario->email }}"
                    class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
                    readonly>
+            @error('email')
+                <span class="text-red-500 text-sm mt-1">{{ $message }}</span>
+            @enderror
         </div>
 
         <!-- Botões -->
