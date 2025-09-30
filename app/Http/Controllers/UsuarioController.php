@@ -203,23 +203,33 @@ public function update(UpdateRequest $request)
     return view('usuario.dashboards', compact('chartBarra', 'chartPizza', 'chartLinha'));
 }
 
+
 public function generatePdf()
 {
     $usuario = Auth::user();
 
     // Compras do ano atual
-    $compras = $usuario->compras()->orderBy('created_at', 'desc')->get();
+    $compras = $usuario->compras()->orderBy('data_compra', 'desc')->get();
+
+    $anoAtual = now()->year;
+    $mesAtualNumero = now()->month;
+
+    // Nome do mês atual em português
+    Carbon::setLocale('pt_BR');
+    $mesAtual = Carbon::create($anoAtual, $mesAtualNumero, 1)->translatedFormat('F');
 
     // Compras do mês atual
-    $mesAtual = now()->month;
-    $anoAtual = now()->year;
-    $comprasMensais = $compras->where('created_at.month', $mesAtual);
+    $comprasMensais = $compras->filter(function($c) use ($mesAtualNumero, $anoAtual) {
+        return Carbon::parse($c->data_compra)->month == $mesAtualNumero
+            && Carbon::parse($c->data_compra)->year == $anoAtual;
+    });
 
     // Relatório anual: total gasto por mês
     $gastosPorMes = [];
     for ($m = 1; $m <= 12; $m++) {
         $gastosPorMes[$m] = $compras->filter(function($c) use ($m, $anoAtual) {
-            return $c->created_at->month == $m && $c->created_at->year == $anoAtual;
+            return Carbon::parse($c->data_compra)->month == $m
+                && Carbon::parse($c->data_compra)->year == $anoAtual;
         })->sum('valor');
     }
 
@@ -233,10 +243,11 @@ public function generatePdf()
         'totalGastoMensal',
         'quantidadeComprasMensal',
         'gastosPorMes',
-        'anoAtual'
+        'anoAtual',
+        'mesAtual' // passa o nome do mês atual
     ));
 
-    return $pdf->download('relatorio_compras_' . now()->format('Y_m_d') . '.pdf');
+    return $pdf->download('relatorio_compras_' . $usuario->nome . '_' . now()->format('Y_m_d') . '.pdf');
 }
 
 

@@ -60,7 +60,7 @@
     </div>
 
 
-<h2>Relatório Mensal - {{ now()->format('F Y') }}</h2>
+<h2>Relatório Mensal - {{$mesAtual}}</h2>
 <p><strong>Total Gasto:</strong> R$ {{ number_format($totalGastoMensal, 2, ',', '.') }}</p>
 <p><strong>Quantidade de Compras:</strong> {{ $quantidadeComprasMensal }}</p>
 
