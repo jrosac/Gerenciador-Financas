@@ -24,11 +24,12 @@
     </div>
 
     <!-- Linha de baixo com gráfico ocupando 100% -->
-    <div class="w-full bg-black/40 rounded-xl p-4 md:p-6 shadow-md">
-        <div class="overflow-x-auto">
-            {!! $chartLinha->container() !!}
-        </div>
+<div class="hidden md:block w-full bg-black/40 rounded-xl p-4 md:p-6 shadow-md">
+    <div class="overflow-x-auto">
+        {!! $chartLinha->container() !!}
     </div>
+</div>
+
 
 </div>
 
