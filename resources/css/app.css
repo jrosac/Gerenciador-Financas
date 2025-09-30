@@ -27,3 +27,37 @@
     color: #ffffff !important;
 }
 
+
+@media (max-width: 640px) {
+    .apexcharts-legend {
+        margin-top: 1.5rem !important;
+        flex-direction: column !important; /* legenda em coluna no mobile */
+        align-items: center !important;
+    }
+
+    .apexcharts-subtitle-text {
+        margin-bottom: 1.5rem !important;
+        font-size: 14px !important; /* subtítulo menor */
+    }
+
+    .apexcharts-title-text {
+        font-size: 16px !important; /* título menor */
+    }
+}
+
+/* Telas médias para cima: manter horizontal, mas dar mais espaçamento */
+@media (min-width: 641px) {
+    .apexcharts-subtitle-text {
+        margin-bottom: 2rem !important;
+    }
+}
+
+.chart-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.chart-wrapper > div {
+    min-width: 600px; /* força largura mínima */
+}
+
