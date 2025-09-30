@@ -2,43 +2,39 @@
 
 @section('content')
 
-
-<h1 class="text-4xl font-bold mt-10 mb-15 text-center text-white">
+<h1 class="text-3xl md:text-4xl font-bold mt-10 mb-8 text-center text-white">
     Dashboards
 </h1>
 
-<div class="flex flex-col min-h-screen gap-6 px-6">
+<div class="flex flex-col min-h-screen gap-8 px-4 md:px-6">
 
-    <!-- Primeira linha com 2 gráficos lado a lado -->
-    <div class="flex gap-6 mb-10">
-        <div class="w-1/2 px-10">
-            {!! $chartPizza->container() !!}
+    <!-- Primeira linha: empilhado no mobile, lado a lado no desktop -->
+    <div class="flex flex-col md:flex-row gap-8 mb-10">
+        <div class="w-full md:w-1/2 bg-black/40 rounded-xl p-4 md:p-6 shadow-md">
+            <div class="overflow-x-auto">
+                {!! $chartPizza->container() !!}
+            </div>
         </div>
 
-        <div class="w-1/2 px-10">
-             {!! $chartBarra->container() !!}
+        <div class="w-full md:w-1/2 bg-black/40 rounded-xl p-4 md:p-6 shadow-md">
+            <div class="overflow-x-auto">
+                {!! $chartBarra->container() !!}
+            </div>
         </div>
     </div>
 
     <!-- Linha de baixo com gráfico ocupando 100% -->
-    <div class="w-full">
-         {!! $chartLinha->container() !!}
+<div class="hidden md:block w-full bg-black/40 rounded-xl p-4 md:p-6 shadow-md">
+    <div class="overflow-x-auto">
+        {!! $chartLinha->container() !!}
     </div>
-
 </div>
 
 
-
+</div>
 
 {!! $chartBarra->script() !!}
 {!! $chartPizza->script() !!}
 {!! $chartLinha->script() !!}
 
-
-</div>
 @endsection
-
-
-
-
-
