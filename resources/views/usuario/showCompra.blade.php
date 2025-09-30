@@ -3,12 +3,9 @@
 @section('content')
 
 <div class="max-w-xl mx-auto mt-16 px-8 py-8 bg-black/70 backdrop-blur-md rounded-xl shadow-lg">
-    <div class="flex justify-center">
-        <img src="{{ Vite::asset('resources/assets/logo4.png') }}" alt="Logo da empresa" class="h-20 mb-3">
-    </div>
     <h1 class="text-3xl font-bold text-white text-center mb-6">Detalhes da Compra</h1>
 
-    <!-- Formulário Dinâmico -->
+    <!-- Formulário de Edição -->
     <form action="{{ route('atualizarCompra', $compra->id) }}" method="POST" id="compraForm" class="flex flex-col gap-4">
         @csrf
         @method('PUT')
@@ -19,14 +16,20 @@
             <input type="text" name="valor" id="valor" value="{{ $compra->valor }}"
                    class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
                    readonly>
+            @error('valor')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Data -->
         <div class="flex flex-col">
             <label for="data_compra" class="text-gray-300 font-medium mb-1">Data da Compra:</label>
-            <input type="date" name="data_compra" id="data_compra" value="{{ $compra->data_compra }}"
+            <input type="date" name="data_compra" id="data_compra" value="{{ \Carbon\Carbon::parse($compra->data_compra)->format('Y-m-d') }}"
                    class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
                    readonly>
+             @error('data_compra')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Descrição -->
@@ -35,6 +38,9 @@
             <input type="text" name="descricao" id="descricao" value="{{ $compra->descricao ?? '' }}"
                    class="px-4 py-2 rounded-lg border border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
                    readonly>
+            @error('descricao')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Categoria -->
@@ -49,6 +55,9 @@
                     </option>
                 @endforeach
             </select>
+            @error('categoria_id')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
         <!-- Forma de Pagamento -->
@@ -63,34 +72,34 @@
                     </option>
                 @endforeach
             </select>
+            @error('forma_pagamento_id')
+                <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+            @enderror
         </div>
 
-        <!-- Botões -->
+        <!-- Botões Editar / Salvar -->
         <div class="flex flex-col gap-4 mt-4">
-            <!-- Botão Editar -->
             <button type="button" id="editarBtn"
                     class="w-full bg-yellow-500 hover:bg-yellow-400 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-colors cursor-pointer">
                 Editar
             </button>
 
-            <!-- Botão Salvar -->
             <button type="submit" id="salvarBtn"
                     class="w-full bg-green-600 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-colors hidden cursor-pointer">
                 Salvar
             </button>
-
-            <!-- Botão Deletar -->
-            <form action="{{ route('deletarCompra', $compra->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar esta compra?')">
-                @csrf
-                @method('DELETE')
-                <button type="submit"
-                        class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-colors cursor-pointer">
-                    Deletar
-                </button>
-            </form>
         </div>
-
     </form>
+
+    <!-- Botão Deletar separado -->
+    <form action="{{ route('deletarCompra', $compra->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja deletar esta compra?')" class="mt-4">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-colors cursor-pointer">
+            Deletar
+        </button>
+    </form>
+
 </div>
 
 <!-- Script para tornar campos editáveis -->
@@ -100,13 +109,14 @@
     const form = document.getElementById('compraForm');
 
     editarBtn.addEventListener('click', () => {
-        // Torna todos inputs e selects editáveis
-        form.querySelectorAll('input, select').forEach(el => {
-            el.removeAttribute('readonly');
-            el.removeAttribute('disabled');
-        });
+        // Remove readonly e habilita selects
+        form.querySelectorAll('input').forEach(el => el.removeAttribute('readonly'));
+        form.querySelectorAll('select').forEach(el => el.removeAttribute('disabled'));
 
-        // Mostra o botão salvar e esconde o botão editar
+        // Destaque visual
+        form.querySelectorAll('input, select').forEach(el => el.classList.add('ring-2', 'ring-green-500'));
+
+        // Alterna botões
         editarBtn.classList.add('hidden');
         salvarBtn.classList.remove('hidden');
     });

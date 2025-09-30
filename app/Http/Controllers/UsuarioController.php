@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Compra;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
+use App\Http\Requests\Usuario\StoreRequest;
+use App\Http\Requests\Usuario\UpdateRequest;
 
 
 class UsuarioController extends Controller
@@ -34,21 +36,14 @@ class UsuarioController extends Controller
      * Store a newly created resource in storage.
      */
 
-public function store(Request $request)
+public function store(StoreRequest $request)
 {
-    // Validação dos campos
-    $request->validate([
-        'nome' => 'required|string|max:255',
-        'email' => 'required|email|unique:usuarios,email',
-        'senha' => 'required|string|min:8|confirmed', // usa senha_confirmation automaticamente
-    ]);
-
     DB::beginTransaction();
     try {
         $usuario = Usuario::create([
             'nome' => $request->nome,
             'email' => $request->email,
-            'senha' => Hash::make($request->senha), // Hash da senha
+            'senha' => Hash::make($request->senha),
         ]);
 
         DB::commit();
@@ -105,25 +100,18 @@ public function store(Request $request)
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
-    {
-        $usuario = Auth::user(); // Sempre o próprio usuário
 
-        // Validação
-        $request->validate([
-            'nome'  => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,' . $usuario->id,
-        ]);
+public function update(UpdateRequest $request)
+{
+    $usuario = Auth::user();
 
-        // Atualiza os campos
-        $usuario->nome = $request->nome;
-        $usuario->email = $request->email;
-        $usuario->save();
+    // Atualiza os campos validados
+    $usuario->update($request->validated());
 
-        // Redireciona de volta com mensagem de sucesso
-        return redirect()->route('perfil')
-                         ->with('success', 'Perfil atualizado com sucesso!');
-    }
+    return redirect()->route('perfil')
+                     ->with('success', 'Perfil atualizado com sucesso!');
+}
+
 
     /**
      * Remove the specified resource from storage.
