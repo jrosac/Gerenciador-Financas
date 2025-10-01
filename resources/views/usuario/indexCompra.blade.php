@@ -1,6 +1,9 @@
 @extends('layouts.admin')
 
 @section('content')
+
+
+<x-alert />
 <div class="min-h-screen p-4 text-white">
     <h1 class="text-2xl font-bold mb-4 text-center sm:text-3xl">Lista de Compras</h1>
 
