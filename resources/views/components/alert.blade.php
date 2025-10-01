@@ -2,7 +2,7 @@
     <script>
         document.addEventListener('DOMContentLoaded',()=>{
 
-                    Swal.fire({
+        Swal.fire({
             icon: 'success',
             title: 'Sucesso!',
             text: '{{ session('success') }}',
@@ -15,7 +15,7 @@
     <script>
         document.addEventListener('DOMContentLoaded',()=>{
 
-                    Swal.fire({
+        Swal.fire({
             icon: 'error',
             title: 'Erro!',
             text: '{{ session('error') }}',
