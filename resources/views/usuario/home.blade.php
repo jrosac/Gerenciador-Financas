@@ -2,6 +2,8 @@
 
 @section('content')
 
+<x-alert />
+
 <script>
     // Se o usuário NÃO estiver logado, redireciona para a página de login
     @guest
