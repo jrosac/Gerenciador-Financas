@@ -73,7 +73,7 @@ public function store(StoreRequest $request)
         ->sum('valor');
 
          $ultimasCompras = Compra::where('usuario_id', $usuario->id)
-        ->latest() // mesma coisa que ->orderBy('created_at', 'desc')
+        ->orderBy('data_compra', 'desc')
         ->take(3)
         ->get();
 
