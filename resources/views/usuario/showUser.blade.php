@@ -2,18 +2,8 @@
 
 @section("content")
 
-{{-- Mensagens de sucesso/erro --}}
-@if(session('error'))
-    <div class="bg-red-500 text-white p-3 rounded mb-4">
-        {{ session('error') }}
-    </div>
-@endif
 
-@if(session('success'))
-    <div class="bg-green-500 text-white p-3 rounded mb-4">
-        {{ session('success') }}
-    </div>
-@endif
+<x-alert />
 
 <div class="max-w-xl mx-auto mt-16 px-8 py-8 bg-black/70 backdrop-blur-md rounded-xl shadow-lg">
 
